@@ -1,14 +1,13 @@
 import styled from 'styled-components';
 
-const HeaderText = styled.div`
-  font-size: 48px;
+const HeaderText = styled.h1`
+  font-size: 2.2rem;
   text-align: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  margin-top: 0px;
   background-color: lightgray;
 `;
 const Header = () => {
-  return <HeaderText>都道府県別人口推移グラフ</HeaderText>;
+  return <HeaderText>都道府県別人口推移</HeaderText>;
 };
 
 export default Header;
