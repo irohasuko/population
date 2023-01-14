@@ -1,5 +1,16 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+const API_URL = 'https://opendata.resas-portal.go.jp/api/v1/prefectures';
 
-export default function handler(req, res) {
-  res.status(200).json({ name: 'John Doe' });
+async function fetchPrefectures() {
+  const response = await fetch(API_URL, {
+    headers: {
+      'X-API-KEY': process.env.API_KEY,
+    },
+  });
+  const data = await response.json();
+  return data;
+}
+
+export default async function handler(req, res) {
+  const result = await fetchPrefectures();
+  res.status(200).json(result);
 }
