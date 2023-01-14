@@ -2,8 +2,7 @@ import styled from 'styled-components';
 
 const PrefectureBox = styled.div`
   text-align: center;
-  padding-top: 20px;
-  margin: 5%;
+  margin-top: 20px;
   border: solid 1px;
 `;
 
