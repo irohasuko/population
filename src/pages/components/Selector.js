@@ -4,14 +4,15 @@ import Checkbox from './Checkbox';
 
 const PrefectureBox = styled.div`
   text-align: center;
-  margin-top: 20px;
+  padding: 5px;
   border: solid 1px;
 `;
 
 const CheckContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  padding: 5px;
+  justify-content: space-around;
 `;
 
 const Selector = ({ setPopulation }) => {
@@ -27,7 +28,7 @@ const Selector = ({ setPopulation }) => {
 
   return (
     <PrefectureBox>
-      <h2>都道府県一覧</h2>
+      <h3>都道府県一覧</h3>
       <CheckContainer>
         {prefectures.map((prefecture) => (
           <Checkbox
