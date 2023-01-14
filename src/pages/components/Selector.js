@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import Checkbox from './Checkbox';
 
 const PrefectureBox = styled.div`
   text-align: center;
@@ -13,7 +14,7 @@ const CheckContainer = styled.div`
   justify-content: center;
 `;
 
-const Selector = () => {
+const Selector = ({ setPopulation }) => {
   const [prefectures, setPrefectures] = useState([]);
   useEffect(() => {
     const fetchPrefectures = async () => {
@@ -29,7 +30,11 @@ const Selector = () => {
       <h2>都道府県一覧</h2>
       <CheckContainer>
         {prefectures.map((prefecture) => (
-          <div key={prefecture.prefCode}>{prefecture.prefName}</div>
+          <Checkbox
+            key={prefecture.prefCode}
+            prefecture={prefecture}
+            setPopulation={setPopulation}
+          />
         ))}
       </CheckContainer>
     </PrefectureBox>
