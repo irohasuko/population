@@ -12,10 +12,27 @@ const StyledCheck = styled.div`
   }
 `;
 
-const Checkbox = ({ prefecture }) => {
+const Checkbox = ({ prefecture, setPopulation }) => {
+  const fetchPopulation = async (e) => {
+    if (e.target.checked) {
+      const response = await fetch(`/api/population/${e.target.id}`);
+      const data = await response.json();
+      setPopulation((prev) => [
+        ...prev,
+        { prefId: e.target.id, name: e.target.value, population: data.result.data[0].data },
+      ]);
+    } else {
+      setPopulation((prev) => prev.filter((pref) => pref.prefId !== e.target.id));
+    }
+  };
   return (
     <StyledCheck>
-      <input type="checkbox" id={prefecture.prefCode} />
+      <input
+        type="checkbox"
+        id={prefecture.prefCode}
+        value={prefecture.prefName}
+        onChange={fetchPopulation}
+      />
       <label htmlFor={prefecture.prefCode}>{prefecture.prefName}</label>
     </StyledCheck>
   );

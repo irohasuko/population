@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import Head from 'next/head';
 import Header from './components/Header';
 import Selector from './components/Selector';
 
 export default function Home() {
+  const [population, setPopulation] = useState([]);
   return (
     <>
       <Head>
@@ -10,7 +12,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <Selector />
+      <Selector setPopulation={setPopulation} />
+      {population.map((data) => (
+        <div key={data.prefId}>{data.name}</div>
+      ))}
     </>
   );
 }
