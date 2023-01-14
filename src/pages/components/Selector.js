@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import Checkbox from './Checkbox';
 
 const PrefectureBox = styled.div`
   text-align: center;
@@ -29,7 +30,7 @@ const Selector = () => {
       <h2>都道府県一覧</h2>
       <CheckContainer>
         {prefectures.map((prefecture) => (
-          <div key={prefecture.prefCode}>{prefecture.prefName}</div>
+          <Checkbox key={prefecture.prefCode} prefecture={prefecture} />
         ))}
       </CheckContainer>
     </PrefectureBox>
