@@ -1,0 +1,39 @@
+#!/bin/bash
+   
+echo -e $'\e[1;45m ***** pre-commit hookを実行します ***** \e[m'
+  
+if git rev-parse --verify HEAD >/dev/null 2>&1
+then
+    against=HEAD
+else
+    # Initial commit: diff against an empty tree object
+    against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
+fi 
+   
+# Redirect output to stderr.
+exec 1>&2
+SYNTAX_CHECK=0
+   
+## 静的解析、及びフォーマッターの実行
+# コミットされるファイルのうち、.jsで終わるもの
+for FILE in `git diff-index --name-status $against -- | grep -E '^[AUM].*\.js$'| cut -c3-`; do
+    # prettierでの整形
+    echo -e $'\e[36m\nPrettierを実行します \e[m'
+    npx prettier --write $FILE
+    git add $FILE
+
+    # ESLintでのチェック
+    echo -e $'\e[36m\nESLintを実行します \e[m'
+    if ! npx eslint $FILE; then
+        SYNTAX_CHECK=1
+        echo -e $'\e[31;43m ESLintのチェックエラーを直してください \e[m'
+    fi
+done
+
+if [ $SYNTAX_CHECK -eq 0 ]; then
+    echo -e $'\e[42m ***** [OK] No errors ***** \e[m'
+    exit 0
+else
+    echo -e $'\e[31;43m 修正を行った上で再度コミットしてください \e[m'
+    exit 1
+fi
