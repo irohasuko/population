@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 import {
   ScatterChart,
   Scatter,
@@ -7,6 +8,13 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
+
+const StyledContainer = styled.div`
+  width: 90%;
+  @media screen and (min-width: 1200px) {
+    width: 49%;
+  }
+`;
 
 const Graph = ({ population }) => {
   // 都道府県ごとの色を得る関数
@@ -23,31 +31,33 @@ const Graph = ({ population }) => {
   };
 
   return (
-    <ResponsiveContainer width="100%" height={400}>
-      <ScatterChart margin={{ top: 20, right: 40, bottom: 20, left: 40 }}>
-        <XAxis
-          type="number"
-          dataKey="year"
-          unit="年"
-          domain={['dataMin', 2020]}
-          allowDataOverflow={true}
-          padding={{ left: 5, right: 5 }}
-        />
-        <YAxis type="number" dataKey="value" name="総人口" unit="人" />
-        <CartesianGrid strokeDasharray="3 3" />
-        <Legend />
-        {population.map((prefecture) => (
-          <Scatter
-            key={prefecture.prefId}
-            name={prefecture.name}
-            datakey="value"
-            data={prefecture.population}
-            fill={getColorById(prefecture.prefId)}
-            line
+    <StyledContainer>
+      <ResponsiveContainer width="100%" height={400}>
+        <ScatterChart margin={{ top: 20, right: 40, bottom: 20, left: 40 }}>
+          <XAxis
+            type="number"
+            dataKey="year"
+            unit="年"
+            domain={['dataMin', 2020]}
+            allowDataOverflow={true}
+            padding={{ left: 5, right: 5 }}
           />
-        ))}
-      </ScatterChart>
-    </ResponsiveContainer>
+          <YAxis type="number" dataKey="value" name="総人口" unit="人" />
+          <CartesianGrid strokeDasharray="3 3" />
+          <Legend />
+          {population.map((prefecture) => (
+            <Scatter
+              key={prefecture.prefId}
+              name={prefecture.name}
+              datakey="value"
+              data={prefecture.population}
+              fill={getColorById(prefecture.prefId)}
+              line
+            />
+          ))}
+        </ScatterChart>
+      </ResponsiveContainer>
+    </StyledContainer>
   );
 };
 
