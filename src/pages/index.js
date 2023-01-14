@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Head from 'next/head';
 import Header from './components/Header';
 import Selector from './components/Selector';
+import Graph from './components/Graph';
 
 export default function Home() {
   const [population, setPopulation] = useState([]);
@@ -13,9 +14,7 @@ export default function Home() {
       </Head>
       <Header />
       <Selector setPopulation={setPopulation} />
-      {population.map((data) => (
-        <div key={data.prefId}>{data.name}</div>
-      ))}
+      <Graph population={population} />
     </>
   );
 }
