@@ -6,6 +6,10 @@ const PrefectureBox = styled.div`
   text-align: center;
   padding: 5px;
   border: solid 1px;
+  width: 90%;
+  @media screen and (min-width: 1200px) {
+    width: 49%;
+  }
 `;
 
 const CheckContainer = styled.div`
