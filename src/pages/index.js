@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import Head from 'next/head';
-import Header from './components/Header';
-import Selector from './components/Selector';
-import Graph from './components/Graph';
+import Header from '../components/Header';
+import Selector from '../components/Selector';
+import Graph from '../components/Graph';
 
 const Content = styled.div`
   display: flex;
