@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {
   ScatterChart,
@@ -17,6 +18,7 @@ const StyledContainer = styled.div`
 `;
 
 const Graph = ({ population }) => {
+  const [boundaryYear, setBoundaryYear] = useState(2020);
   // 都道府県ごとの色を得る関数
   const getColorById = (id) => {
     const red_array = [0, 3, 5, 6]; // 0で割ると0,3,5,6余るidには赤を適用
@@ -30,6 +32,15 @@ const Graph = ({ population }) => {
     return `#${colorCode}`;
   };
 
+  useEffect(() => {
+    const fetchBoundaryYear = async () => {
+      const response = await fetch('/api/population/1');
+      const data = await response.json();
+      setBoundaryYear(data.result.boundaryYear);
+    };
+    fetchBoundaryYear();
+  }, []);
+
   return (
     <StyledContainer>
       <ResponsiveContainer width="100%" height={400}>
@@ -38,7 +49,7 @@ const Graph = ({ population }) => {
             type="number"
             dataKey="year"
             unit="年"
-            domain={['dataMin', 2020]}
+            domain={['dataMin', boundaryYear]}
             allowDataOverflow={true}
             padding={{ left: 5, right: 5 }}
           />
