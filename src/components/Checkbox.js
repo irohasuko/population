@@ -14,6 +14,7 @@ const StyledCheck = styled.div`
 
 const Checkbox = ({ prefecture, setPopulation }) => {
   const fetchPopulation = async (e) => {
+    e.target.disabled = true;
     if (e.target.checked) {
       const response = await fetch(`/api/population/${e.target.id}`);
       const data = await response.json();
@@ -24,6 +25,7 @@ const Checkbox = ({ prefecture, setPopulation }) => {
     } else {
       setPopulation((prev) => prev.filter((pref) => pref.prefId !== e.target.id));
     }
+    e.target.disabled = false;
   };
   return (
     <StyledCheck>
